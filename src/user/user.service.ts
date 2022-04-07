@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserDocument } from './user.schema';
 import {Model } from 'mongoose';
@@ -18,7 +18,7 @@ export class UserService {
     }
     async findById(id: string): Promise<UserDetails | null>{
         const user=await  this.userModel.findById(id).exec();
-        if(!user) return null ;//we can throw an exception
+        if(!user) throw new HttpException('User with this email does not exist', HttpStatus.NOT_FOUND) ;//we can throw an exception
         return this._getUserDetails(user);
     }
     async create(
@@ -31,6 +31,6 @@ export class UserService {
             email,
             password:hashedPassword,
         });
-        return newUser.save();
+        return newUser.save(); 
     }
 }

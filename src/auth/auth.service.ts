@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { ExisitingUserDTO } from 'src/user/dtos/existing-user.dto';
@@ -17,11 +17,14 @@ export class AuthService {
         return bcrypt.hash(password, 12);
     }
     async register(user: Readonly<NewUserDTO>): Promise<UserDetails | any> {
-        const { name, email, password } = user;
+        const { name, email, password } = user; 
         const existingUser = await this.UserService.findByEmail(email);
-        if (existingUser) return 'Email taken!';
+        if (existingUser){ 
+            throw new HttpException('mail already used',404); 
+        }
         const hashedPassword = await this.hashPassword(password);
-        const newUser = await this.UserService.create(name, email, hashedPassword);
+        const newUser = await this.UserService.create(name, email, hashedPassword);      console.log('hy');
+        
         return this.UserService._getUserDetails(newUser);
     }
     async doesPasswordMatch(password: string, hashedPassword: string): Promise<boolean> {
@@ -29,9 +32,10 @@ export class AuthService {
     }
     async validateUser(email: string, password: string): Promise<UserDetails | null> {
         const user = await this.UserService.findByEmail(email);
-        if (!user) return null;
+        if (!user) throw new HttpException('user inexistant',HttpStatus.NOT_FOUND);
         const doesPasswordMatch = await this.doesPasswordMatch(password, user.password);
-        if (!doesPasswordMatch) return null;
+        if (!doesPasswordMatch) throw new HttpException('mot de passe fausse',HttpStatus.NOT_FOUND);
+  
         return this.UserService._getUserDetails(user);
     }
     async login(existingUser: ExisitingUserDTO): Promise<{ token: string } | null> {

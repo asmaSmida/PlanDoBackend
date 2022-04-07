@@ -1,5 +1,4 @@
-import { Controller,Get, Param } from '@nestjs/common';
-import { get } from 'http';
+import { Controller,Get, Param } from '@nestjs/common'; 
 import { UserDetails } from './user-details.interface';
 import { UserService } from './user.service';
 
