@@ -8,19 +8,19 @@ import { AuthService } from './auth.service';
 @Controller('auth')
 export class AuthController {
     constructor(
-        private authService:AuthService,
+        private authService: AuthService,
         private readonly configService: ConfigService
-        ){} 
+    ) { }
     @Post('register')
-    register(@Body() user: NewUserDTO):Promise<UserDetails |null>{
+    register(@Body() user: NewUserDTO): Promise<UserDetails | null> {
         console.log(this.configService.get('APP_PORT'));
-        
+
         return this.authService.register(user);
     }
     @Post('login')
     @HttpCode(HttpStatus.OK) //when an element is createdthe status code is 201 ,here we are overriding it
-    login(@Body() user: ExisitingUserDTO):Promise<{token:string}|null>{
-         return this.authService.login(user);
+    login(@Body() user: ExisitingUserDTO): Promise<{ token: string } | null> {
+        return this.authService.login(user);
     }
 }
 

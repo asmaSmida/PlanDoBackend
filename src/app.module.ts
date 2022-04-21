@@ -8,6 +8,7 @@ import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { EstateModule } from './estate/estate.module';
 @Module({
   imports: [  
     ConfigModule.forRoot({
@@ -15,7 +16,7 @@ import { JwtModule } from '@nestjs/jwt';
     }),
     UserModule,
     MongooseModule.forRoot('mongodb+srv://salma:salma@cluster0.eeaxx.mongodb.net/plandoDatabase?retryWrites=true&w=majority'), 
-    AuthModule],
+    AuthModule, EstateModule],
   controllers: [AppController, AuthController],
   providers: [AppService ],
 })
