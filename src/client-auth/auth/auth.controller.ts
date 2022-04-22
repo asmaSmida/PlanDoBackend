@@ -10,15 +10,9 @@ export class UserAuthController {
     constructor(
         private authService: AuthService,
         private readonly configService: ConfigService
-<<<<<<< HEAD:src/client-auth/auth/auth.controller.ts
         ){} 
     @Post('register-user')
     register(@Body() user: NewUserDTO):Promise<UserDetails |null>{
-=======
-    ) { }
-    @Post('register')
-    register(@Body() user: NewUserDTO): Promise<UserDetails | null> {
->>>>>>> 068e08cbea42edec91e0a57df3a0ebcfc1bab63c:src/auth/auth.controller.ts
         console.log(this.configService.get('APP_PORT'));
 
         return this.authService.register(user);
