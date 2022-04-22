@@ -11,9 +11,6 @@ import { UserAuthController } from './client-auth/auth/auth.controller';
 import { HostAuthModule } from './host-auth/auth/auth.module';
 import { UserAuthModule } from './client-auth/auth/auth.module';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config();
-
-const DB = process.env.DB_connection;
 
 @Module({
   imports: [
@@ -22,7 +19,7 @@ const DB = process.env.DB_connection;
     }),
     UserModule,
     UserAuthModule,
-    MongooseModule.forRoot(DB),
+    MongooseModule.forRoot(`${process.env.DB_connection}`),
     HostAuthModule,
     HostModule,
   ],
