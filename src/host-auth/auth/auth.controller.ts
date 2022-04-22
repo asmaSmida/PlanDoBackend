@@ -1,26 +1,26 @@
 import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { ExisitingUserDTO } from 'src/user/dtos/existing-user.dto';
-import { NewUserDTO } from 'src/user/dtos/new-user.dto';
-import { UserDetails } from 'src/user/user-details.interface';
+import { ExisitingHostDTO } from 'src/host-auth/host/dtos/existing-host.dto';
+import { NewHostDTO } from 'src/host-auth/host/dtos/new-host.dto';
+import { HostDetails } from 'src/host-auth/host/host-details.interface';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
-export class AuthController {
+export class HostAuthController {
     constructor(
         private authService:AuthService,
         private readonly configService: ConfigService
         ){} 
-    @Post('register')
-    register(@Body() user: NewUserDTO):Promise<UserDetails |null>{
+    @Post('register-host')
+    register(@Body() host: NewHostDTO):Promise<HostDetails |null>{
         console.log(this.configService.get('APP_PORT'));
         
-        return this.authService.register(user);
+        return this.authService.register(host);
     }
     @Post('login')
     @HttpCode(HttpStatus.OK) //when an element is createdthe status code is 201 ,here we are overriding it
-    login(@Body() user: ExisitingUserDTO):Promise<{token:string}|null>{
-         return this.authService.login(user);
+    login(@Body() host: ExisitingHostDTO):Promise<{token:string}|null>{
+         return this.authService.login(host);
     }
 }
 

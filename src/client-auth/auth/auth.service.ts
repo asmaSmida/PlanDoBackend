@@ -1,11 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import { ExisitingUserDTO } from 'src/user/dtos/existing-user.dto';
-import { NewUserDTO } from 'src/user/dtos/new-user.dto';
-import { UserDetails } from 'src/user/user-details.interface';
-import { UserDocument } from 'src/user/user.schema';
-import { UserService } from 'src/user/user.service';
+import { ExisitingUserDTO } from 'src/client-auth/user/dtos/existing-user.dto';
+import { NewUserDTO } from 'src/client-auth/user/dtos/new-user.dto';
+import { UserDetails } from 'src/client-auth/user/user-details.interface';
+import { UserDocument } from 'src/client-auth/user/user.schema';
+import { UserService } from 'src/client-auth/user/user.service';
 
 @Injectable()
 export class AuthService {
@@ -20,11 +20,10 @@ export class AuthService {
         const { name, email, password } = user; 
         const existingUser = await this.UserService.findByEmail(email);
         if (existingUser){ 
-            throw new HttpException('mail already used',404); 
+            throw new HttpException('mail already used',409); 
         }
         const hashedPassword = await this.hashPassword(password);
-        const newUser = await this.UserService.create(name, email, hashedPassword);      console.log('hy');
-        
+        const newUser = await this.UserService.create(name, email, hashedPassword);  
         return this.UserService._getUserDetails(newUser);
     }
     async doesPasswordMatch(password: string, hashedPassword: string): Promise<boolean> {

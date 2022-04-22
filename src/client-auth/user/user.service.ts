@@ -30,7 +30,7 @@ export class UserService {
             name,
             email,
             password:hashedPassword,
-        });
-        return newUser.save(); 
+        }); 
+        return newUser.save();
     }
 }
