@@ -10,15 +10,22 @@ import { HostAuthController } from './host-auth/auth/auth.controller';
 import { UserAuthController } from './client-auth/auth/auth.controller';
 import { HostAuthModule } from './host-auth/auth/auth.module';
 import { UserAuthModule } from './client-auth/auth/auth.module';
+import { EstateModule } from './estate/estate.module';
+import { APP_PIPE } from '@nestjs/core';
+import { ValidationPipe } from './validation.pipe';
 @Module({
   imports: [  
     ConfigModule.forRoot({
       isGlobal:true
     }),
-    UserModule,UserAuthModule,
+    UserModule,UserAuthModule,EstateModule,
     MongooseModule.forRoot('mongodb+srv://salma:salma@cluster0.eeaxx.mongodb.net/plandoDatabase?retryWrites=true&w=majority'), 
     HostAuthModule, HostModule],
   controllers: [AppController, HostAuthController,UserAuthController],
-  providers: [AppService ],
+  providers: [AppService,
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    } ],
 })
 export class AppModule {}

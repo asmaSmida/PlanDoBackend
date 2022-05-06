@@ -12,8 +12,7 @@ export class NewHostDTO{
     @IsNotEmpty({message:"Priére d'entrer votre maison d'hote "})
    
     estate:string; 
-    @IsNotEmpty({message:"Priére d'entrer votre telephone "})
-    @Prop({unique:true})
+    @IsNotEmpty({message:"Priére d'entrer votre telephone "}) 
     @MinLength(8,{message:"numero telephone doit avoir 8 chiffres "})
     telephone:string; 
     @IsNotEmpty({message:"Priére d'entrer votre region "})

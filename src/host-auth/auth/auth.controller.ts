@@ -17,7 +17,7 @@ export class HostAuthController {
 
     return this.authService.register(host);
   }
-  @Post('login')
+  @Post('login-host')
   @HttpCode(HttpStatus.OK) //when an element is createdthe status code is 201 ,here we are overriding it
   login(@Body() host: ExisitingHostDTO): Promise<{ token: string } | null> {
     return this.authService.login(host);

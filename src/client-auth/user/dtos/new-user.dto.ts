@@ -3,7 +3,7 @@ import { IsNotEmpty, MaxLength, MinLength } from 'class-validator';
 
 
 export class NewUserDTO{
-    @IsNotEmpty({message:"Priére d'entrer votre nom "})
+    @IsNotEmpty({message:"Priére d'entrer votre nom ! "})
     @Prop({unique:true}) 
     name:string;
     @IsNotEmpty({message:"Priére d'entrer votre mail "})
