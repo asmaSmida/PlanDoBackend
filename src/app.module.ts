@@ -28,6 +28,5 @@ import { ValidationPipe } from './validation.pipe';
       provide: APP_PIPE,
       useClass: ValidationPipe,
     } ],
->>>>>>> 109ba970e5c08243a84286e6903a35a28a3804ff
 })
 export class AppModule {}
