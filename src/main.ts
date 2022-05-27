@@ -16,6 +16,6 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
-  await app.listen(configService.get('APP_PORT'));
+  await app.listen(5000);
 }
 bootstrap();

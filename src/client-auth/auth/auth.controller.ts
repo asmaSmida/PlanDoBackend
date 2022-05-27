@@ -11,7 +11,7 @@ export class UserAuthController {
         private authService: AuthService,
         private readonly configService: ConfigService
         ){} 
-    @Post('register-user')
+    @Post('register-user') 
     register(@Body() user: NewUserDTO):Promise<UserDetails |null>{
         console.log(this.configService.get('APP_PORT'));
 

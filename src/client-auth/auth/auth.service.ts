@@ -30,7 +30,8 @@ export class AuthService {
         return bcrypt.compare(password, hashedPassword);
     }
     async validateUser(email: string, password: string): Promise<UserDetails | null> {
-        const user = await this.UserService.findByEmail(email);
+        const user = await this.UserService.findByEmail(email); console.log(email+user);
+        
         if (!user) throw new HttpException('user inexistant',HttpStatus.NOT_FOUND);
         const doesPasswordMatch = await this.doesPasswordMatch(password, user.password);
         if (!doesPasswordMatch) throw new HttpException('mot de passe fausse',HttpStatus.NOT_FOUND);

@@ -8,7 +8,7 @@ export class Estate {
   name: string;
   @Prop({ required: true })
   localisation: string;
-  @Prop({ required: true, unique: true })
+  @Prop({ required: true })
   description: string;
   @Prop({ required: true })
   summary: string;

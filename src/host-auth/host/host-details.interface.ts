@@ -1,3 +1,5 @@
+import { UserRoleEnum } from "./host.schema";
+
 export interface HostDetails {
     id: string;
     name: string;
@@ -5,4 +7,5 @@ export interface HostDetails {
     estate: string;
     telephone: string;
     region: string;
+    role:UserRoleEnum
 }

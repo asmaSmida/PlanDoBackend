@@ -15,11 +15,16 @@ export class HostService {
             estate:host.estate,
             telephone:host.telephone,
             region:host.region,
+            role:host.role,
         }
     }
-    async findByIdentifier(email: string,username:string): Promise<HostDocument | null>{
+    async findByEmail(email: string): Promise<HostDocument | null>{
+        return this.hostModel.findOne({ email 
+          } ).exec();
+    }
+    async findByPhoneNumber(phone: string ): Promise<HostDocument | null>{
         return this.hostModel.findOne({
-            where: [{ username }, { email }],
+            phone
           } ).exec();
     }
     async findById(id: string): Promise<HostDetails | null>{
