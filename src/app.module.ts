@@ -19,9 +19,13 @@ import { ValidationPipe } from './validation.pipe';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    UserModule,UserAuthModule,EstateModule,
+    UserModule,
+    UserAuthModule,
+    EstateModule,
     MongooseModule.forRoot('mongodb+srv://salma:salma@cluster0.eeaxx.mongodb.net/plandoDatabase?retryWrites=true&w=majority'), 
-    HostAuthModule, HostModule],
+    HostAuthModule, 
+    HostModule
+  ],
   controllers: [AppController, HostAuthController,UserAuthController],
   providers: [AppService,
     {
