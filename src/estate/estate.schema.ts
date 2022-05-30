@@ -10,21 +10,21 @@ export class Estate {
   localisation: string;
   @Prop({ required: true })
   description: string;
-  @Prop({ required: true })
+  @Prop({ required: false })
   summary: string;
   @Prop({ required: true })
-  amenities: string;
-  @Prop({ required: true })
+  amenities: string; 
+  @Prop({ required: false })
   piscine: boolean;
-  @Prop({ required: true })
+  @Prop({ required: false })
   restaurant: boolean;
-  @Prop({ required: true })
+  @Prop({ required: false })
   hammam: boolean;
-  @Prop({ required: true })
+  @Prop({ required: false })
   patrimoine: boolean;
-  @Prop({ required: true })
+  @Prop({ required: false })
   plage: boolean;
-  @Prop({ required: true })
+  @Prop({ required: false })
   randonnee: boolean;
 }
 export const EstateSchema = SchemaFactory.createForClass(Estate);

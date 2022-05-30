@@ -51,7 +51,8 @@ export class EstateService {
       plage: estate.plage,
       randonnee: estate.randonnee,
     });
-     newEstate.save();
+     newEstate.save(); console.log(newEstate);
+     
      return this._getEstateDetails(newEstate);
   }
 }

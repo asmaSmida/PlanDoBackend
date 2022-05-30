@@ -24,7 +24,9 @@ export class AuthService {
         }
         const hashedPassword = await this.hashPassword(password);
         const newUser = await this.UserService.create(name, email, hashedPassword);  
-        return this.UserService._getUserDetails(newUser);
+        const jwt = await this.jwtService.signAsync({user});//json with token
+        return {token: jwt};
+        // return this.UserService._getUserDetails(newUser);
     }
     async doesPasswordMatch(password: string, hashedPassword: string): Promise<boolean> {
         return bcrypt.compare(password, hashedPassword);

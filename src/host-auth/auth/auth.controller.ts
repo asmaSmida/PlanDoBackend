@@ -13,7 +13,7 @@ export class HostAuthController {
   ) {}
   @Post('register-host')
   register(@Body() host: NewHostDTO): Promise<HostDetails | null> {
-    console.log(this.configService.get('APP_PORT'));
+    console.log(this.configService.get('APP_PORT')+"hey");
 
     return this.authService.register(host);
   }
