@@ -13,18 +13,19 @@ import { EstateModule } from './estate/estate.module';
 import { APP_PIPE } from '@nestjs/core';
 import { ValidationPipe } from './validation.pipe';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config();
-
-const DB = process.env.DB_connection;
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    UserModule,UserAuthModule,EstateModule,
+    UserModule,
+    UserAuthModule,
+    EstateModule,
     MongooseModule.forRoot('mongodb+srv://salma:salma@cluster0.eeaxx.mongodb.net/plandoDatabase?retryWrites=true&w=majority'), 
-    HostAuthModule, HostModule],
+    HostAuthModule, 
+    HostModule
+  ],
   controllers: [AppController, HostAuthController,UserAuthController],
   providers: [AppService,
     {

@@ -16,7 +16,7 @@ export class EstateController {
     return this.estateService.findById(id);
   }
   @Post('add-estate')
-  @UseGuards(AuthGuard('jwt')) 
+  // @UseGuards(AuthGuard('jwt')) 
   addEstate(@Body() estate: NewEstateDetails,
    @GetUser() user:Host
    ): Promise<EstateDetails | null> {
