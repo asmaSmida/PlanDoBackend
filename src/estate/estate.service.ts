@@ -16,6 +16,7 @@ export class EstateService {
       id: estate.id,
       name: estate.name,
       description: estate.description,
+      capacity: estate.capacity,
       localisation: estate.localisation,
       summary: estate.summary,
       amenities: estate.amenities,
@@ -26,6 +27,7 @@ export class EstateService {
       patrimoine: estate.patrimoine,
       plage: estate.plage,
       randonnee: estate.randonnee,
+      price: estate.price,
     };
   }
   async findByName(name: string): Promise<EstateDocument | null> {
@@ -42,6 +44,7 @@ export class EstateService {
     const newEstate = new this.estateModel({
       name: estate.name,
       description: estate.description,
+      capacity: estate.capacity,
       localisation: estate.localisation,
       summary: estate.summary,
       amenities: estate.amenities,
@@ -52,6 +55,7 @@ export class EstateService {
       patrimoine: estate.patrimoine,
       plage: estate.plage,
       randonnee: estate.randonnee,
+      price: estate.price,
     });
      newEstate.save(); console.log(newEstate);
      

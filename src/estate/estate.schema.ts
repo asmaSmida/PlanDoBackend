@@ -10,6 +10,8 @@ export class Estate {
   localisation: string;
   @Prop({ required: true })
   description: string;
+  @Prop({ required: true })
+  capacity: number;
   @Prop({ required: false })
   summary: string;
   @Prop({ required: true })
@@ -28,5 +30,7 @@ export class Estate {
   plage: boolean;
   @Prop({ required: false })
   randonnee: boolean;
+  @Prop({ required: false })
+  price: number;
 }
 export const EstateSchema = SchemaFactory.createForClass(Estate);
