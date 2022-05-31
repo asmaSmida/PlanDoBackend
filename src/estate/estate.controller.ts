@@ -19,6 +19,6 @@ export class EstateController {
    @GetUser() user:Host
    ): Promise<EstateDetails | null> {
     console.log('user '+ user); 
-    return this.estateService.create(estate);
+    return this.estateService.create(estate,user);
   }
 }

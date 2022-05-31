@@ -1,6 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Type } from 'class-transformer';
+import mongoose from 'mongoose';
 import { Document } from 'mongoose';
+import { Host } from 'src/host-auth/host/host.schema';
 export type EstateDocument = Estate & Document;
 @Schema()
 export class Estate {
@@ -10,13 +13,13 @@ export class Estate {
   localisation: string;
   @Prop({ required: true })
   description: string;
-  @Prop({ required: true })
+  @Prop({ required: false })
   capacity: number;
   @Prop({ required: false })
   summary: string;
   @Prop({ required: true })
   amenities: string; 
-  @Prop({ required: true })
+  @Prop({ required: false })
   image: string; 
   @Prop({ required: false })
   piscine: boolean;
@@ -32,5 +35,8 @@ export class Estate {
   randonnee: boolean;
   @Prop({ required: false })
   price: number;
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'host' })
+  @Type(() => Host)
+  owner: Host ; 
 }
 export const EstateSchema = SchemaFactory.createForClass(Estate);

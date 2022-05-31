@@ -5,6 +5,7 @@ import { EstateDocument } from './estate.schema';
 import { Model } from 'mongoose';
 import { EstateDetails } from './estate-details.interface';
 import { NewEstateDetails } from './new-estate-details.interface';
+import { Host } from 'src/host-auth/host/host.schema';
 
 @Injectable()
 export class EstateService {
@@ -27,7 +28,7 @@ export class EstateService {
       patrimoine: estate.patrimoine,
       plage: estate.plage,
       randonnee: estate.randonnee,
-      price: estate.price,
+      price: estate.price, 
     };
   }
   async findByName(name: string): Promise<EstateDocument | null> {
@@ -39,7 +40,7 @@ export class EstateService {
     return this._getEstateDetails(estate);
   }
   async create(
-    estate:NewEstateDetails
+    estate:NewEstateDetails, host:Host
   ): Promise<EstateDetails> {
     const newEstate = new this.estateModel({
       name: estate.name,
@@ -56,6 +57,7 @@ export class EstateService {
       plage: estate.plage,
       randonnee: estate.randonnee,
       price: estate.price,
+      owner:host
     });
      newEstate.save(); console.log(newEstate);
      
