@@ -6,7 +6,7 @@ export interface EstateDetails {
   type: string;
   localisation: string;
   description: string;
-  capacity: number;
+  capacity: string;
   summary: string;
   amenities: string;
   image: string;
@@ -16,5 +16,5 @@ export interface EstateDetails {
   patrimoine: boolean;
   plage: boolean;
   randonnee: boolean;
-  price: number;
+  price: string;
 }
