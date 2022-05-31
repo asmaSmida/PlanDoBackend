@@ -3,6 +3,7 @@ import { StringifyOptions } from "querystring";
 export interface EstateDetails {
   id: string;
   name: string;
+  type: string;
   localisation: string;
   description: string;
   capacity: number;

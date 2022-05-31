@@ -1,5 +1,6 @@
 export interface NewEstateDetails {
   name: string;
+  type: string;
   localisation: string;
   description: string;
   capacity: number;
