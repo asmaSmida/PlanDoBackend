@@ -1,3 +1,5 @@
+import { StringifyOptions } from "querystring";
+
 export interface EstateDetails {
   id: string;
   name: string;
@@ -5,6 +7,7 @@ export interface EstateDetails {
   description: string;
   summary: string;
   amenities: string;
+  image: string;
   piscine: boolean;
   restaurant: boolean;
   hammam: boolean;

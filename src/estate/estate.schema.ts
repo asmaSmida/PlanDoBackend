@@ -14,6 +14,8 @@ export class Estate {
   summary: string;
   @Prop({ required: true })
   amenities: string; 
+  @Prop({ required: true })
+  image: string; 
   @Prop({ required: false })
   piscine: boolean;
   @Prop({ required: false })

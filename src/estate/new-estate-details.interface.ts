@@ -4,6 +4,7 @@ export interface NewEstateDetails {
   description: string;
   summary: string;
   amenities: string;
+  image: string;
   piscine: boolean;
   restaurant: boolean;
   hammam: boolean;
