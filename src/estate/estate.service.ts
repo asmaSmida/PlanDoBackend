@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { EstateDocument } from './estate.schema';
+import { Estate, EstateDocument } from './estate.schema';
 import { Model } from 'mongoose';
 import { EstateDetails } from './estate-details.interface';
 import { NewEstateDetails } from './new-estate-details.interface';
@@ -32,16 +32,21 @@ export class EstateService {
       price: estate.price, 
     };
   }
+  
+  async findAllByHost(id : string) {
+    return this.estateModel.find( {owner:id} ).exec();
+}
   async findAll() {
-    return this.estateModel.find().exec();
+    return this.estateModel.find().populate({path:'owner', model: 'Host'}).exec();
   }
   async findByName(name: string): Promise<EstateDocument | null> {
-    return this.estateModel.findOne({ name }).exec();
+    return this.estateModel.findOne({ name }).exec( );
   }
-  async findById(id: string): Promise<EstateDetails | null> {
-    const estate = await this.estateModel.findById(id).exec();
-    if (!estate) return null; //we can throw an exception
-    return this._getEstateDetails(estate);
+  async findById(id: string)  {
+    
+    return this.estateModel.findById(id).populate({path:'owner', model: 'Host'}).exec();
+    const estate = await (await this.estateModel.findById(id)).populate('owner') ;
+    if (!estate) return null; //we can throw an exception 
   }
   async create(
     estate:NewEstateDetails, host:Host

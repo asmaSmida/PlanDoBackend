@@ -3,6 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/client-auth/decorateur/getUser.paramDecorater';
 import { Host } from 'src/host-auth/host/host.schema';
 import { EstateDetails } from './estate-details.interface';
+import { Estate } from './estate.schema';
 import { EstateService } from './estate.service';
 import { NewEstateDetails } from './new-estate-details.interface';
 
@@ -10,7 +11,7 @@ import { NewEstateDetails } from './new-estate-details.interface';
 export class EstateController {
   constructor(private estateService: EstateService) {}
   @Get(':id')
-  getEstate(@Param('id') id: string): Promise<EstateDetails | null> {
+  getEstate(@Param('id') id: string)  {
     return this.estateService.findById(id);
   }
   @Get()

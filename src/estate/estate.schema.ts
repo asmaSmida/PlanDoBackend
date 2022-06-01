@@ -6,7 +6,7 @@ import { Document } from 'mongoose';
 import { Host } from 'src/host-auth/host/host.schema';
 export type EstateDocument = Estate & Document;
 @Schema()
-export class Estate {
+export class Estate   {
   @Prop({ required: false })
   name: string;
   @Prop({ required: false })
@@ -37,6 +37,8 @@ export class Estate {
   randonnee: boolean;
   @Prop({ required: false })
   price: string;
+  @Prop({ required: false })
+  available: boolean;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'host' })
   @Type(() => Host)
   owner: Host ;

@@ -19,6 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     const user = await this.hostService.findByEmail(
       payload.email,
     );
+    
     if (!user) {
       throw new UnauthorizedException('Veuillez vérifier vos credentials');
     }

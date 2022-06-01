@@ -13,6 +13,8 @@ import { EstateModule } from './estate/estate.module';
 import { APP_PIPE } from '@nestjs/core';
 import { ValidationPipe } from './validation.pipe'; 
 import { EstateController } from './estate/estate.controller';
+import { ReserveModule } from './reservation/reserve.module';
+import { ReserveController } from './reservation/reserve.controller';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 
 @Module({
@@ -23,11 +25,12 @@ import { EstateController } from './estate/estate.controller';
     UserModule,
     UserAuthModule,
     EstateModule,
+    ReserveModule,
     MongooseModule.forRoot('mongodb+srv://salma:salma@cluster0.eeaxx.mongodb.net/plandoDatabase?retryWrites=true&w=majority'), 
     HostAuthModule, 
     HostModule
   ],
-  controllers: [AppController, EstateController, HostAuthController,UserAuthController],
+  controllers: [AppController, EstateController,  ReserveController, HostAuthController,UserAuthController],
   providers: [AppService,
     {
       provide: APP_PIPE,
