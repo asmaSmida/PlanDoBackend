@@ -11,9 +11,8 @@ import { HostAuthModule } from './host-auth/auth/auth.module';
 import { UserAuthModule } from './client-auth/auth/auth.module';
 import { EstateModule } from './estate/estate.module';
 import { APP_PIPE } from '@nestjs/core';
-import { ValidationPipe } from './validation.pipe';
-import { EstatesService } from './estates/estates.service';
-import { EstatesController } from './estates/estates.controller';
+import { ValidationPipe } from './validation.pipe'; 
+import { EstateController } from './estate/estate.controller';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 
 @Module({
@@ -28,12 +27,12 @@ import { EstatesController } from './estates/estates.controller';
     HostAuthModule, 
     HostModule
   ],
-  controllers: [AppController, HostAuthController,UserAuthController, EstatesController],
+  controllers: [AppController, EstateController, HostAuthController,UserAuthController],
   providers: [AppService,
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,
-    },
-    EstatesService ],
+    }
+     ],
 })
 export class AppModule {}

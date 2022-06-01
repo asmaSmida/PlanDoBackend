@@ -32,6 +32,9 @@ export class EstateService {
       price: estate.price, 
     };
   }
+  async findAll() {
+    return this.estateModel.find().exec();
+  }
   async findByName(name: string): Promise<EstateDocument | null> {
     return this.estateModel.findOne({ name }).exec();
   }

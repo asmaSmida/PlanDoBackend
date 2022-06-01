@@ -13,6 +13,10 @@ export class EstateController {
   getEstate(@Param('id') id: string): Promise<EstateDetails | null> {
     return this.estateService.findById(id);
   }
+  @Get()
+  getEstates() {
+    return this.estateService.findAll();
+  }
   @Post('add-estate')
   @UseGuards(AuthGuard('jwt')) 
   addEstate(@Body() estate: NewEstateDetails,
