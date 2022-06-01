@@ -7,17 +7,19 @@ import { Host } from 'src/host-auth/host/host.schema';
 export type EstateDocument = Estate & Document;
 @Schema()
 export class Estate {
-  @Prop({ required: true })
+  @Prop({ required: false })
   name: string;
-  @Prop({ required: true })
+  @Prop({ required: false })
+  type: string;
+  @Prop({ required: false })
   localisation: string;
-  @Prop({ required: true })
+  @Prop({ required: false })
   description: string;
   @Prop({ required: false })
-  capacity: number;
+  capacity: string;
   @Prop({ required: false })
   summary: string;
-  @Prop({ required: true })
+  @Prop({ required: false })
   amenities: string; 
   @Prop({ required: false })
   image: string; 
@@ -34,9 +36,9 @@ export class Estate {
   @Prop({ required: false })
   randonnee: boolean;
   @Prop({ required: false })
-  price: number;
+  price: string;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'host' })
   @Type(() => Host)
-  owner: Host ; 
+  owner: Host ;
 }
 export const EstateSchema = SchemaFactory.createForClass(Estate);

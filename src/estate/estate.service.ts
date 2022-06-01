@@ -16,6 +16,7 @@ export class EstateService {
     return {
       id: estate.id,
       name: estate.name,
+      type: estate.type,
       description: estate.description,
       capacity: estate.capacity,
       localisation: estate.localisation,
@@ -44,6 +45,7 @@ export class EstateService {
   ): Promise<EstateDetails> {
     const newEstate = new this.estateModel({
       name: estate.name,
+      type: estate.type,
       description: estate.description,
       capacity: estate.capacity,
       localisation: estate.localisation,
