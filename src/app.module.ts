@@ -22,6 +22,7 @@ import { ReserveController } from './reservation/reserve.controller';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    
     UserModule,
     UserAuthModule,
     EstateModule,

@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import mongoose from "mongoose";
 import {Document} from 'mongoose';
 export type HostDocument = Host & Document;
 
@@ -9,7 +10,7 @@ export enum UserRoleEnum {
   }
   
 @Schema()
-export class Host {
+export class Host   {
     @Prop({required: true,unique:true})
     name: string;
     @Prop({required: true,unique:true})

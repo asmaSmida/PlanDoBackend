@@ -1,12 +1,15 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { HostDocument } from './host.schema';
+import { Host, HostDocument } from './host.schema';
 import {Model } from 'mongoose';
 import { HostDetails } from './host-details.interface';
 import { NewHostDTO } from './dtos/new-host.dto';
+import { EstateService } from 'src/estate/estate.service';
 @Injectable()
 export class HostService {
-    constructor(@InjectModel('Host') private readonly hostModel: Model<HostDocument>){}
+    constructor(@InjectModel('Host') private readonly hostModel: Model<HostDocument>,
+    private estateService: EstateService,
+    ){}
     _getHostDetails(host: HostDocument ): HostDetails{
         return{
             id: host._id,
@@ -31,6 +34,10 @@ export class HostService {
         const host=await  this.hostModel.findById(id).exec();
         if(!host) throw new HttpException('Host with this email does not exist', HttpStatus.NOT_FOUND) ;//we can throw an exception
         return this._getHostDetails(host);
+    }
+    
+    async getEstates(user:HostDocument) {
+        return this.estateService.findAllByHost(user._id)
     }
     async create(newHostDto:NewHostDTO ):Promise<HostDocument>{
         const { name, email,estate ,telephone,region,password } = newHostDto; 
