@@ -1,3 +1,15 @@
+## PLAN & DO 
+A website enabaling customers to search and book the appropriate places for their events and automating rental management for estates' owners.
+
+Developed with ReactJs , NestJs and MongoDB
+
+ **_NOTE:_**  this is the backend of the actual project where you can find the frontend through [this link](https://github.com/yahyaouisalma82/Plan-Do)
+ ## Demo Video
+ 
+
+https://user-images.githubusercontent.com/80569527/213576823-db0690cc-4a4d-4384-be34-6a235dd44ef4.mp4
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
@@ -56,18 +68,4 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+```*
