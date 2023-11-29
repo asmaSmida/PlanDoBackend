@@ -1,0 +1,77 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_IMAGE = 'your-docker-image:latest'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Terraform Init') {
+            steps {
+                script {
+                    // Install Terraform (if not available in the Docker image)
+                    sh 'wget https://releases.hashicorp.com/terraform/0.15.0/terraform_0.15.0_linux_amd64.zip -O terraform.zip'
+                    sh 'unzip terraform.zip'
+                    sh 'mv terraform /usr/bin/'
+                    sh 'terraform --version'
+
+                    // Initialize Terraform
+                    sh 'terraform init'
+                }
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                script {
+                    // Run Terraform plan
+                    sh 'terraform plan -out=tfplan'
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                script {
+                    // Run Terraform apply
+                    sh 'terraform apply -auto-approve tfplan'
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build Docker image
+                    sh 'docker build -t $DOCKER_IMAGE .'
+                }
+            }
+        }
+
+        stage('Deploy Application') {
+            steps {
+                script {
+                    // Your deployment steps go here
+                    // This might involve pushing the Docker image to a registry and deploying it
+                    sh 'docker push $DOCKER_IMAGE'
+                    // Additional deployment steps...
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline succeeded! Send notifications or perform additional actions here.'
+        }
+        failure {
+            echo 'Pipeline failed! Send notifications or perform additional actions here.'
+        }
+    }
+}
