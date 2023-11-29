@@ -21,8 +21,8 @@ pipeline {
                     
 
                     // Initialize Terraform
-                    sh 'terraform init'
-                }
+                   sh 'terraform init -input=false -backend=false -get-plugins=false -verify-plugins=false'
+         }
             }
         }
 
