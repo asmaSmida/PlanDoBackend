@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE = 'your-docker-image:latest'
+        DOCKER_IMAGE = 'plandoImageBackend:latest'
     }
 
     stages {
