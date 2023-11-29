@@ -15,6 +15,9 @@ pipeline {
         stage('Terraform Init') {
             steps {
                 script {
+                    sudo apt-get update
+                    sudo apt-get install wget
+
                     // Install Terraform (if not available in the Docker image)
                     sh 'wget https://releases.hashicorp.com/terraform/0.15.0/terraform_0.15.0_linux_amd64.zip -O terraform.zip'
                     sh 'unzip terraform.zip'
