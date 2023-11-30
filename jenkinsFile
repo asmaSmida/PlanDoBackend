@@ -65,14 +65,7 @@ pipeline {
             }
         }
 
-        stage('Deploy Application') {
-            steps {
-                script {
-                    // Your additional deployment steps go here
-                    // This might involve additional configurations or services
-                }
-            }
-        }
+        
     }
 
     post {
