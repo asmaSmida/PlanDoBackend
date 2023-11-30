@@ -5,7 +5,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = 'asmasmida13/dockertp:planDoImageBackend'
+        DOCKER_IMAGE = 'asmasmida13/dockertp:plandoimgbackend'
     }
 
     stages {
@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     // Build Docker image
-                    sh 'docker build -t planDoImageBackend .'
+                    sh 'docker build -t plandoimgbackend .'
                 }
             }
         }
@@ -32,7 +32,7 @@ pipeline {
                         sh "docker login -u asmasmida13 -p $dockerhub"
                     }
                     echo "Push to Docker Hub"
-                    sh "docker tag planDoImageBackend $DOCKER_IMAGE"
+                    sh "docker tag plandoimgbackend $DOCKER_IMAGE"
                     sh "docker push $DOCKER_IMAGE"
                 }
             }
