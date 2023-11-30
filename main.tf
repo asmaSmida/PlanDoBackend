@@ -23,14 +23,15 @@ resource "docker_container" "mongo" {
   }
 }
 
-
 resource "docker_container" "nestjs_app" {
-  image  = "asmasmida13/dockertp:plandoimgbackend"
-  name   = "nestjs-container"
-  links  = [docker_container.mongo]
+  image     = "asmasmida13/dockertp:plandoimgbackend"
+  name      = "nestjs-container"
+  depends_on = [docker_container.mongo]
   ports {
     internal = 3000
   }
 }
+
+
 
 # Additional Resources and Configurations...
