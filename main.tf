@@ -8,8 +8,9 @@ terraform {
 }
 
 provider "docker" {
-  # Connect to the Docker daemon using the default Unix socket
+  host = "unix:///var/run/docker.sock"
 }
+
 
 resource "docker_network" "app_network" {
   name = "nestjs-mongo-network"
