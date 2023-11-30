@@ -4,7 +4,10 @@ pipeline {
         terraform 'terraform'
     }
 
-  
+    environment {
+        DOCKER_IMAGE = 'asmasmida13/dockertp:planDoImageBackend'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -21,23 +24,19 @@ pipeline {
             }
         }
 
-  
-
-  stage("push to docker hub") {
+        stage('Push to Docker Hub') {
             steps {
                 script {
                     echo "======== executing ========"
-             
                     withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
-                    sh "docker login -u asmasmida13 -p $dockerhub"
-                        
+                        sh "docker login -u asmasmida13 -p $dockerhub"
                     }
-                    echo "push to hub"
-                    sh "docker tag planDoImageBackend asmasmida13/dockertp:planDoImageBackend"
-                    sh "docker push asmasmida13/dockertp:planDoImageBackend"
-                    
+                    echo "Push to Docker Hub"
+                    sh "docker tag planDoImageBackend $DOCKER_IMAGE"
+                    sh "docker push $DOCKER_IMAGE"
                 }
-            }}
+            }
+        }
 
         stage('Terraform Init') {
             steps {
