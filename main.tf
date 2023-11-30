@@ -2,13 +2,13 @@ terraform {
   required_providers {
     docker = {
       source = "kreuzwerker/docker"
-      version = ">= 2.0.0"
+      version = "24.0.0-rc.2"
     }
   }
 }
 
 provider "docker" {
-  host = "tcp://localhost:2375"
+   host = "unix:///var/run/docker.sock"
 }
 
 
