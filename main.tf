@@ -24,7 +24,7 @@ resource "docker_container" "mongo" {
 }
 
 resource "docker_container" "nestjs_app" {
-  image  = "asmasmida13/dockertp:planDoImageBackend"
+  image  = "asmasmida13/dockertp:plandoimgbackend"
   name   = "nestjs-container"
   networks = [docker_network.app_network.name]
   ports {
