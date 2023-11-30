@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {
                     // Initialize Terraform
-                    sh 'terraform init '
+                    sh 'terraform init -upgrade '
                 }
             }
         }
