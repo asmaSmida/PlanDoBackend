@@ -4,10 +4,7 @@ pipeline {
         terraform 'terraform'
     }
 
-    environment {
-        DOCKER_IMAGE = 'plandoImageBackend:latest'
-    }
-
+  
     stages {
         stage('Checkout') {
             steps {
@@ -15,14 +12,39 @@ pipeline {
             }
         }
 
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build Docker image
+                    sh 'docker build -t planDoImageBackend .'
+                }
+            }
+        }
+
+  
+
+  stage("push to docker hub") {
+            steps {
+                script {
+                    echo "======== executing ========"
+             
+                    withCredentials([string(credentialsId: 'dockerhub', variable: 'dockerhub')]) {
+                    sh "docker login -u asmasmida13 -p $dockerhub"
+                        
+                    }
+                    echo "push to hub"
+                    sh "docker tag planDoImageBackend asmasmida13/dockertp:planDoImageBackend"
+                    sh "docker push asmasmida13/dockertp:planDoImageBackend"
+                    
+                }
+            }}
+
         stage('Terraform Init') {
             steps {
                 script {
-                    
-
                     // Initialize Terraform
-                   sh 'terraform init -input=false -backend=false -get-plugins=false -verify-plugins=false'
-         }
+                    sh 'terraform init -input=false -backend=false -get-plugins=false -verify-plugins=false'
+                }
             }
         }
 
@@ -44,22 +66,11 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    // Build Docker image
-                    sh 'docker build -t $DOCKER_IMAGE .'
-                }
-            }
-        }
-
         stage('Deploy Application') {
             steps {
                 script {
-                    // Your deployment steps go here
-                    // This might involve pushing the Docker image to a registry and deploying it
-                    sh 'docker push $DOCKER_IMAGE'
-                    // Additional deployment steps...
+                    // Your additional deployment steps go here
+                    // This might involve additional configurations or services
                 }
             }
         }
