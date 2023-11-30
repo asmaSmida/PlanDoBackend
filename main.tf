@@ -1,26 +1,19 @@
-terraform {
-  required_providers {
-    docker = {
-      source = "kreuzwerker/docker"
-    }
-  }
-}
-
 provider "docker" {
-   host = "unix:///var/run/docker.sock"
+  host = "unix:///var/run/docker.sock"
 }
-
 
 resource "docker_network" "app_network" {
   name = "nestjs-mongo-network"
 }
-
 
 resource "docker_container" "mongo" {
   image  = "mongo:latest"
   name   = "mongo-container"
   ports {
     internal = 27017
+  }
+  networks_advanced {
+    name = docker_network.app_network.name
   }
 }
 
@@ -31,8 +24,8 @@ resource "docker_container" "nestjs_app" {
   ports {
     internal = 3000
   }
+  networks_advanced {
+    name = docker_network.app_network.name
+  }
 }
 
-
-
-# Additional Resources and Configurations...
