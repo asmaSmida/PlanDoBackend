@@ -1,43 +1,40 @@
-# main.tf
-
-provider "azurerm" {
-  features = {}
-}
-
-resource "azurerm_resource_group" "example" {
-  name     = "example-resource-group"
-  location = "East US"
-}
-
-resource "azurerm_container_group" "nestjs_mongo_aci" {
-  name                = "nestjs-mongo-aci"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
-  os_type             = "Linux"
-
-  container {
-    name   = "nestjs-container"
-    image  = "asmasmida13/dockertp:plandoimgbackend"
-    cpu    = "0.5"
-    memory = "1.5Gi"
-    ports {
-      internal = 3000
-      external = 3000
+terraform {
+  required_providers {
+    docker = {
+      source = "kreuzwerker/docker"
     }
   }
+}
 
-  container {
-    name   = "mongo-container"
-    image  = "mongo:latest"
-    cpu    = "0.5"
-    memory = "1Gi"
-    ports {
-      internal = 27017
-      external = 27017
-    }
+provider "docker" {
+   host = "unix:///var/run/docker.sock"
+   tls {
+    ca_file   = "/etc/docker/certs/ca.pem"
+    cert_file = "/etc/docker/certs/cert.pem"
+    key_file  = "/etc/docker/certs/key.pem"
+    verify    = true
   }
+}
 
-  tags = {
-    environment = "production"
+
+resource "docker_network" "app_network" {
+  name = "nestjs-mongo-network"
+}
+
+
+resource "docker_container" "mongo" {
+  image  = "mongo:latest"
+  name   = "mongo-container"
+  ports {
+    internal = 27017
+  }
+}
+
+resource "docker_container" "nestjs_app" {
+  image     = "asmasmida13/dockertp:plandoimgbackend"
+  name      = "nestjs-container"
+  depends_on = [docker_container.mongo]
+  ports {
+    internal = 3000
   }
 }
