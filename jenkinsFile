@@ -43,7 +43,7 @@ pipeline {
                 script {
                     // Initialize Terraform
                     sh 'terraform init  '
-                   // sh 'az login -u asma.smida@insat.u-carthage.tn -p 13122000Asma'
+                   
                 }
             }
         }
@@ -52,6 +52,7 @@ pipeline {
             steps {
                 script {
                     // Run Terraform plan
+                     sh 'az login -u asma.smida@insat.u-carthage.tn -p 13122000Asma'
                     sh 'terraform plan '
                 }
             }
