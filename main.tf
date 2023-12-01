@@ -1,40 +1,46 @@
-terraform {
-  required_providers {
-    docker = {
-      source = "kreuzwerker/docker"
+provider "azurerm" {
+   features {}
+}
+
+resource "azurerm_resource_group" "example" {
+  name     = "aci-example-rg"
+  location = "East US"
+}
+
+resource "azurerm_container_group" "example" {
+  name                = "aci-example-container-group"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+  os_type             = "Linux"
+
+  container {
+    name   = "example-container"
+    image  = "asmasmida13/dockertp:plandoimgbackend"  # Use the desired Docker image
+    cpu    = "0.5"
+    memory = "1.5"
+
+    ports {
+      port     = 80
+      protocol = "TCP"
     }
   }
-}
 
-provider "docker" {
-   host = "unix:///var/run/docker.sock"
-   tls {
-    ca_file   = "/etc/docker/certs/ca.pem"
-    cert_file = "/etc/docker/certs/cert.pem"
-    key_file  = "/etc/docker/certs/key.pem"
-    verify    = true
+  tags = {
+    environment = "testing"
   }
 }
 
+resource "azurerm_public_ip" "example" {
+  name                = "aci-example-public-ip"
+  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example.location
+  allocation_method   = "Static"
 
-resource "docker_network" "app_network" {
-  name = "nestjs-mongo-network"
-}
-
-
-resource "docker_container" "mongo" {
-  image  = "mongo:latest"
-  name   = "mongo-container"
-  ports {
-    internal = 27017
+  tags = {
+    environment = "testing"
   }
 }
 
-resource "docker_container" "nestjs_app" {
-  image     = "asmasmida13/dockertp:plandoimgbackend"
-  name      = "nestjs-container"
-  depends_on = [docker_container.mongo]
-  ports {
-    internal = 3000
-  }
+output "public_ip_address" {
+  value = azurerm_container_group.example.ip_address
 }
